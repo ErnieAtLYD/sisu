@@ -1,6 +1,8 @@
 // tests/test-setup.js
 
 // https://zellwk.com/blog/jest-and-mongoose/
+const { MongoMemoryServer } = require("mongodb-memory-server");
+const mongod = new MongoMemoryServer();
 
 const mongoose = require("mongoose");
 mongoose.set("useCreateIndex", true);
@@ -38,11 +40,12 @@ module.exports = {
   setupDB(DB_URL) {
     // connect to mongoose
     beforeAll(async () => {
-      const url = DB_URL;
-      await mongoose.connect(url, {
+      const url = await mongod.getConnectionString();
+      const opts = {
         useUnifiedTopology: true,
         useNewUrlParser: true,
-      });
+      };
+      await mongoose.connect(url, opts);
     });
 
     // Cleans up database between each test
@@ -54,6 +57,7 @@ module.exports = {
     afterAll(async () => {
       await dropAllCollections();
       await mongoose.connection.close();
+      await mongod.stop();
     });
   },
 };

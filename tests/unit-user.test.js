@@ -2,7 +2,7 @@ const { setupDB } = require("./test-setup");
 const User = require("../backend/models/user.model");
 
 // Setup a Test Database
-setupDB(process.env.DB_TEST_URL);
+setupDB(global.__MONGO_URI__);
 
 describe("User Schema: CREATE", () => {
   it("creates a user", async (done) => {
@@ -30,7 +30,7 @@ describe("User Schema: READ", () => {
 
   it("finds the user by username", async (done) => {
     const foundUser = await User.findOne({ username: "user1" });
-    expect(foundUser.username === "user1").toBeTruthy();
+    expect(foundUser.username).toBe("user1");
     done();
   });
 

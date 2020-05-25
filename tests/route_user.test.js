@@ -7,7 +7,7 @@ const app = require("../backend/server");
 const request = require("supertest");
 
 // Setup a Test Database
-setupDB(process.env.DB_TEST_URL);
+setupDB(global.__MONGO_URI__);
 
 describe("API: User Endpoints", () => {
   it("should get users", async () => {
