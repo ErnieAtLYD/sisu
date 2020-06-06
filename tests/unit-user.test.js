@@ -1,5 +1,5 @@
 const { setupDB } = require("./test-setup");
-const User = require("../backend/models/user.model");
+const User = require("../backend/users/user.model");
 
 // Setup a Test Database
 setupDB(global.__MONGO_URI__);
