@@ -10,8 +10,39 @@ const request = require("supertest");
 setupDB(global.__MONGO_URI__);
 
 describe("API: User Endpoints", () => {
-  it("should get users", async () => {
+  const user = {
+    username: "ErnieAtLYD",
+    name: {
+      firstName: "Ernie",
+      lastName: "Hsiung",
+    },
+    password: "password",
+  };
+
+  it("gets users", async () => {
     const res = await request(app).get("/api/users");
     expect(res.statusCode).toEqual(200);
+  });
+
+  describe("POST", () => {
+    it("registers a new user", async () => {
+      const res = await request(app).post("/api/users").send(user);
+      expect(res.statusCode).toEqual(201);
+    });
+
+    it("won't allow you to register an existing user by username", async () => {
+      const res = await request(app).post("/api/users").send(user);
+      expect(res.statusCode).toEqual(201);
+
+      const res2 = await request(app).post("/api/users").send(user);
+      expect(res2.statusCode).toEqual(400);
+    });
+
+    it("fails if no username", async () => {
+      const noUsername = user;
+      delete noUsername.username;
+      const res = await request(app).post("/api/users").send(noUsername);
+      expect(res.statusCode).toEqual(500);
+    });
   });
 });

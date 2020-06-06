@@ -2,7 +2,8 @@
 
 import express from "express";
 import path from "path";
-import { default as UserRoutes } from "./routes/api/users";
+// import { default as UserRoutes } from "./routes/api/users";
+import { default as UserRoutes } from "./users/users";
 
 /**
  * Server Variables

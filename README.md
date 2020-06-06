@@ -6,6 +6,15 @@ The finnish phrase for the chinese phrase for eating bitterness
 
 Exploratory monogoose data modelling of a hypothetical student managment system. Connects to cloud SAAS database via MongoDB Atlas. Uses ES6 JavaScript on the NodeJS side via Babel. Uses jest for testing, even though [mongoose isn't crazy about that](https://mongoosejs.com/docs/jest.html) in general.
 
+Controllers
+Every controller should be able to:
+
+- take in a request and a response
+- return a 200 with a response payload / dto
+- return a 200/201 without a response payload / dto
+- return a 400 error
+- return a 500 error
+
 ### Installation
 
 Fill in your MongoDB connection inside the `.env` file. Inside `.env.sample` is the general format I used to connect to MongoDB Atlas.
