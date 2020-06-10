@@ -5,13 +5,23 @@ const Cohort = require("../backend/cohorts/cohort.model");
 setupDB(global.__MONGO_URI__);
 
 describe("Cohort Schema", () => {
-  it("creates a cohort", async (done) => {
+  beforeEach(async (done) => {
     const cohort = new Cohort({
       programCode: "C",
       cohortNumber: 36,
     });
     await cohort.save();
+    done();
+  });
+
+  it("creates a cohort", async (done) => {
+    const cohort = await Cohort.findOne();
     expect(cohort.isNew).toBeFalsy();
+    done();
+  });
+  it("has a short name", async (done) => {
+    const cohort = await Cohort.findOne();
+    expect(cohort.shortName).toBe("C36");
     done();
   });
 });
