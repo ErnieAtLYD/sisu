@@ -1,6 +1,6 @@
 // backend/users/user.controller.js
 
-const User = require("/user.model");
+const User = require("./user.model");
 
 /**
  * @route    POST api/users/login
