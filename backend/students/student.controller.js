@@ -1,6 +1,6 @@
 // backend/students/student.controller.js
 
-import Student from "./student.model";
+const Student = require("./student.model");
 
 /**
  * @route    POST api/cohorts/:id/students

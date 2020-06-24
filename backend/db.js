@@ -1,6 +1,6 @@
 // backend/db.js
 
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 /**
  * Required External Modules

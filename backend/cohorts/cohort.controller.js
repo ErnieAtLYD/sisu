@@ -1,6 +1,6 @@
 // backend/cohorts/cohort.controller.js
 
-import Cohort from "./cohort.model";
+const Cohort = require("./cohort.model");
 
 /**
  * @route    POST api/cohorts

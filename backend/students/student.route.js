@@ -5,4 +5,4 @@ import StudentController from "./student.controller";
 
 const StudentRoutes = ExpressRouter();
 
-export default StudentRoutes;
+module.exports = StudentRoutes;

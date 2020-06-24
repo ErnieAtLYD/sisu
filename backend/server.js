@@ -1,9 +1,9 @@
 // backend/server.js
 
-import express from "express";
-import path from "path";
-import { default as UserRoutes } from "./users/users";
-import { default as CohortRoutes } from "./cohorts/cohort.route";
+const express = require("express");
+const path = require("path");
+const UserRoutes = require("./users/users");
+const CohortRoutes = require("./cohorts/cohort.route");
 
 /**
  * Server Variables

@@ -2,13 +2,13 @@
 
 // https://www.youtube.com/watch?v=mbsmsi7l3r4
 
-import { Router as ExpressRouter } from "express";
-import CohortController from "./cohort.controller";
-import StudentController from "../students/student.controller";
+const Router = require("express");
+const CohortController = require("./cohort.controller");
+const StudentController = require("../students/student.controller");
 
-const CohortRoutes = ExpressRouter();
+const CohortRoutes = Router();
 
 CohortRoutes.post("/", CohortController.postCohort);
 CohortRoutes.post("/:id/students", StudentController.addStudentToCohort);
 
-export default CohortRoutes;
+module.exports = CohortRoutes;
