@@ -5,9 +5,12 @@
 import { Router as ExpressRouter } from "express";
 import UserController from "./user.controller";
 
+const auth = require("../middleware/auth.js");
+
 const UserRoutes = ExpressRouter();
 
-UserRoutes.get("/", UserController.getUsers);
-UserRoutes.post("/", UserController.postUser);
+UserRoutes.post("/", UserController.createUser);
+UserRoutes.post("/login", UserController.login);
+UserRoutes.post("/logout", auth, UserController.logout);
 
 export default UserRoutes;

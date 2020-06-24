@@ -4,9 +4,11 @@
 
 import { Router as ExpressRouter } from "express";
 import CohortController from "./cohort.controller";
+import StudentController from "../students/student.controller";
 
 const CohortRoutes = ExpressRouter();
 
 CohortRoutes.post("/", CohortController.postCohort);
+CohortRoutes.post("/:id/students", StudentController.addStudentToCohort);
 
 export default CohortRoutes;

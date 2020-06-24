@@ -9,8 +9,8 @@ const cohortSchema = new Schema({
     required: true,
     enum: ["C", "UXUI", "PT"],
   },
-  cohortNumber: {
-    type: Number,
+  shortName: {
+    type: String,
     required: true,
   },
   startDate: Date,
@@ -21,9 +21,6 @@ const cohortSchema = new Schema({
       ref: "Student",
     },
   ],
-});
-cohortSchema.virtual("shortName").get(function () {
-  return this.programCode + this.cohortNumber;
 });
 
 const Cohort = mongoose.model("Cohort", cohortSchema);

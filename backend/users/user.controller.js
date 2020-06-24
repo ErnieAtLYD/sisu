@@ -1,19 +1,40 @@
 // backend/users/user.controller.js
 
-import User from "./user.model";
+const User = require("/user.model");
 
 /**
- * @route    GET api/users
- * @desc     Gets all users
+ * @route    POST api/users/login
+ * @desc     Login the user
  * @access   public
  */
-exports.getUsers = async (req, res) => {
+exports.login = async (req, res) => {
   try {
-    const users = await User.find(req.body);
-    res.status(200).json({ users });
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Server Error");
+    const user = await User.findByCredentials(
+      req.body.username,
+      req.body.password
+    );
+    const token = await user.generateAuthToken();
+    res.send({ user, token });
+  } catch (e) {
+    res.status(400).send();
+  }
+};
+
+/**
+ * @route    POST api/users/logout
+ * @desc     Logs out the user by removing the jwt token
+ * @access   public
+ */
+exports.logout = async (req, res) => {
+  try {
+    req.user.tokens = req.user.tokens.filter((token) => {
+      return token.token !== req.token;
+    });
+
+    await req.user.save();
+    res.send(req.user);
+  } catch (e) {
+    res.status(500).send();
   }
 };
 
@@ -22,20 +43,13 @@ exports.getUsers = async (req, res) => {
  * @desc     Register a user
  * @access   public
  */
-exports.postUser = async (req, res) => {
-  const { username, password, name, email, profile_name } = req.body;
+exports.createUser = async (req, res) => {
+  const user = new User(req.body);
   try {
-    let user = await User.findOne({ username });
-    if (user) {
-      return res.status(400).json({ errors: [{ msg: "User already exists" }] });
-    }
-    user = new User({ username, password, name, email, profile_name });
     await user.save();
-
-    const payload = { user: { id: user.id } };
-    res.status(201).json(payload);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Server Error");
+    const token = await user.generateAuthToken();
+    res.status(201).send({ user, token });
+  } catch (e) {
+    res.status(400).send(e);
   }
 };
