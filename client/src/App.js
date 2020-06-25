@@ -58,17 +58,7 @@ function App() {
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
-      <Grid container component="main" className={classes.main}>
-        <Avatar
-          style={{ width: 160, height: 160 }}
-          alt="Albert Palacio"
-          src="https://wynbucket.nyc3.digitaloceanspaces.com/wynapi/pictures/PalacioAlbert.jpeg"
-        />
-        <Typography variant="h4" gutterBottom>
-          Albert Palacio
-        </Typography>
-        albertdevelops@gmail.com
-      </Grid>
+      <Grid container component="main" className={classes.main}></Grid>
     </>
   );
 }
