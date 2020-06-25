@@ -7,8 +7,8 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-import server from "./backend/server";
-import db from "./backend/db";
+const server = require("./backend/server");
+const db = require("./backend/db");
 
 // FIXME: unsure on whether to keep this here or move to server
 
