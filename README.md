@@ -25,6 +25,8 @@ To run:
 yarn dev
 ```
 
+During development, you can run `yarn db:reset` to clear your development database and insert an admin user.
+
 ### Testing
 
 Uses `mongodb-memory-server` to run MongoDB tests without actually creating a test DB instance.
