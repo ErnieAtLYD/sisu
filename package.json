@@ -4,6 +4,7 @@
   "main": "server.js",
   "license": "MIT",
   "scripts": {
+    "db:reset": "node backend/seeds.js",
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "cd client && yarn run start",
