@@ -1,5 +1,6 @@
 import React from "react";
 
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -9,8 +10,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
-
-import { Avatar } from "@material-ui/core";
+import Login from "./components/Login";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,8 +40,9 @@ function App() {
   const classes = useStyles();
 
   return (
-    <>
+    <Router>
       <CssBaseline />
+      <Route component={Login} path="/login" />
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar variant="dense" className={classes.toolbar}>
           <IconButton
@@ -59,7 +60,7 @@ function App() {
         </Toolbar>
       </AppBar>
       <Grid container component="main" className={classes.main}></Grid>
-    </>
+    </Router>
   );
 }
 
