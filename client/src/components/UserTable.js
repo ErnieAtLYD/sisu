@@ -1,28 +1,70 @@
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+import React, { useContext, useState } from "react";
+import { AppContext } from "../context/AppContext";
+import { makeStyles } from "@material-ui/core/styles";
+import MaterialTable from "material-table";
+
+const useStyles = makeStyles((theme) => ({
+  table: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: theme.spacing(3),
+    minWidth: 850,
+  },
+}));
 
 const UserTable = () => {
+  const [data, setData] = useState([]);
+  const { currentCohortStudents } = useContext(AppContext);
+
+  const classes = useStyles();
+
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Email</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell>Ernie Hsiung</TableCell>
-            <TableCell>fjbain77@gmail.com</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div className={classes.table}>
+      <MaterialTable
+        columns={[
+          { title: "Name", field: "name" },
+          { title: "Preferred Email", field: "preferred_email" },
+          { title: "Google Email", field: "google_email" },
+          { title: "GitHub Username", field: "github" },
+        ]}
+        data={currentCohortStudents}
+        editable={{
+          onRowAdd: (newData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                /* setData([...data, newData]); */
+
+                resolve();
+              }, 1000);
+            }),
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                const dataUpdate = [...data];
+                const index = oldData.tableData.id;
+                dataUpdate[index] = newData;
+                setData([...dataUpdate]);
+
+                resolve();
+              }, 1000);
+            }),
+          onRowDelete: (oldData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                const dataDelete = [...data];
+                const index = oldData.tableData.id;
+                dataDelete.splice(index, 1);
+                setData([...dataDelete]);
+
+                resolve();
+              }, 1000);
+            }),
+        }}
+        title="C37 Roster"
+        options={{ actionsColumnIndex: -1 }}
+      />
+    </div>
   );
 };
+
+export default UserTable;
